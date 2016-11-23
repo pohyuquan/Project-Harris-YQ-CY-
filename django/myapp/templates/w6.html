@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>{{title}}</title>
+{% block header_ex %}{% endblock %}
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:600,500,400,300,200,100,400italic0&subset=latin,greek,latin-ext' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="{% static 'myapp/w6_style.css' %}" />
+
+</head>
+<body>
+
+<ul class="nav">
+  <li><a href="index.html" class="active">Seattle</a></li>
+  <li><a href="thingstodo.html">Things to Do</a></li>
+  <li><a href="thingstoeat.html">Food and Drinks</a></li>
+  <li><a href="gettingthere.html">Getting Here</a></li>
+</ul>
+
+<img src="http://freecnatrainingclasses.org/wp-content/uploads/2010/03/Seattle-Free-CNA-Classes1-720x325.jpg" alt="Seattle" width="100%" align="center">
+{% block content %}
+<p> Are you ready to explore Seattle, the urban city surrounded by unparalleled natural beauty?</p>
+{% endblock %}
+</body>
+</html>
