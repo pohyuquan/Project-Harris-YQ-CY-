@@ -1,0 +1,149 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+img {
+  margin: 0px 0px;
+  border-color: white;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+table {
+  align: left;
+  border-width: 5px 0px;
+  padding: 0px;
+  border-spacing: 0px;
+  display: inline-block;
+
+
+}
+
+h1 {
+  color: black;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+p {
+  text-align: justify;
+}
+.navbar {
+  style: uppercase;
+  background-color: white;
+  color: black;
+  border-radius: 0px;
+  border-color: white;
+  border-width: 0px;
+  position: relative;
+
+}
+
+.navbar-inverse {
+  padding: 0px;
+  min-height: 0px !important;
+  height: 38px;
+  font-size: 13pt;
+  color: black;
+}
+
+.navbar .navbar-nav .active>a,
+.navbar .navbar-nav .active>a:focus,
+.navbar .navbar-nav .active>a:hover {
+  background-color: dimgrey;
+  border: none;
+}
+
+.navbar-nav > li > a {
+  padding-top: 7px !important;
+  padding-bottom:0 !important;
+  height: 38px;
+  color: white;
+  display: inline-block;
+  position: relative;
+
+}
+
+.navbar-inverse .navbar-nav>li>a {
+  color: black;
+  position: relative;
+
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+  background-color: dimgrey;
+  position: relative;
+
+}
+
+.navbar-brand {
+    padding-top: 4px !important;
+    padding-bottom :0 !important;
+    padding-left: 0 !important;
+    height: 30px;
+    position: relative;
+
+}
+
+.navbar-toggle {
+    margin: 3px 0px;
+    background-color: transparent;
+    background-image: none;
+    border-color: white;
+    border-width: 1px;
+    border-radius: 6px;
+    position: relative;
+
+}
+
+.dropdown-toggle:active,
+.open .dropdown-toggle {
+  background:dimgrey !important;
+  color: black !important;
+  position: relative;
+
+}
+
+.navbar-nav > .dropdown a{
+  padding: 0px 15px;
+  position: relative;
+
+}
+
+.dropdown-menu {
+  background-color: dimgrey;
+  padding: 0px 0px;
+  position: relative;
+
+}
+
+.dropdown > .dropdown-menu > li a {
+  background-color: dimgrey;
+  color: black;
+  padding: 6px 16px;
+  position: relative;
+
+}
+
+
+.form-nav-control {
+  width : auto;
+  height : 38px;
+  margin: 0px 0px;
+  padding: 0px 20px;
+  display: inline-block;
+  border-width: 4px;
+  border-radius: 0px;
+  background-color: white;
+  border-color: dimgrey;
+  color: black;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  float: right;
+  position: relative;
+
+}
