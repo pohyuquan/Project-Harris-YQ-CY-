@@ -1,31 +1,28 @@
-from django import forms  
-from .models import Input, Counties, STATES, CURRENCY, COUNTIES
+from django import forms
+from .models import Input, STATES, schools, SCHOOL_DISTRICTS
 
-class InputForm(forms.ModelForm):  
-
-    state = forms.ChoiceField(choices=STATES, required=True,
-                              widget=forms.Select())
+class InputForm(forms.ModelForm):
 
     attrs = {'class ' : 'form-nav-control',
              'onchange ' : 'this.form.submit()'}
 
-    currency = forms.ChoiceField(choices=CURRENCY, required=True,
-                                 widget=forms.Select(attrs = attrs))
+    state = forms.ChoiceField(choices=STATES, required=True,
+                              widget = forms.Select(attrs = attrs))
+
     class Meta:
 
         model = Input
-        fields = ['state', 'address', "currency"]
+        fields = ['state']
 
-
-
-class CountiesForm(forms.ModelForm):  
+class SchoolsForm(forms.ModelForm):
 
     attrs = {'class ' : 'form-nav-control',
              'onchange ' : 'this.form.submit()'}
 
-    county = forms.ChoiceField(choices = COUNTIES, required = True,
-                               widget = forms.Select(attrs = attrs))
+    district = forms.ChoiceField(choices=SCHOOL_DISTRICTS, required=True,
+                              widget = forms.Select(attrs = attrs))
+
     class Meta:
 
-        model = Counties
-        fields = ['county']
+        model = schools
+        fields = ['district']

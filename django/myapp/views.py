@@ -13,12 +13,13 @@ from django.conf import settings
 import numpy as np, pandas as pd
 import matplotlib.pyplot as plt
 
-
 from .forms import InputForm
-from .models import STATES_DICT, CURRENCY_DICT
+from .models import STATES_DICT
 
-import geopandas as gpd
-import folium
+from .forms import SchoolsForm
+from .models import SCHOOL_DISTRICTS_DICT
+
+import geopandas as gpd, folium
 from geopy import Nominatim
 
 import seaborn as sns
@@ -26,14 +27,17 @@ sns.set(font_scale = 1.7)
 
 from io import BytesIO
 
-def index(req):
-    return render(req, "index.html")
+from django.views.generic import FormView
 
-def data(req):
+def index(request):
 
-    return render(req, "data.html")
+    return render(request, "base_data.html")
 
-def table(request):
+def data(request):
+
+    return render(request, "data.html")
+
+def display_table(request):
 
     state = request.GET.get('state', 'Alaska')
 
@@ -47,192 +51,43 @@ def table(request):
     table = df.to_html(float_format = "%.3f", classes = "table table-striped", index = False)
     table = table.replace('border="1"','border="0"')
     table = table.replace('style="text-align: right;"', "") # control this in css, not pandas.
-    table = table.title()
+
     params = {'title' : state,
-              'form_action' : reverse_lazy('myapp:display_pic'),
+              'form_action' : reverse_lazy('myapp:display_table'),
               'form_method' : 'get',
-              'form' : CountiesForm({'state' : state}),
-              'html_table' : table}
+              'form' : InputForm({'state' : state}),
+              'html_table' : table,
+              'State_Name' : state}
 
     return render(request, 'view_table.html', params)
 
-
-def csv(request, year = None):
-
-
-   filename = join(settings.STATIC_ROOT, 'myapp/va_presidential.csv')
-
-   df = pd.read_csv(filename)
-
-   if year: df = df[df["Year"] == int(year)]
-
-   table = df.to_html(float_format = "%.3f", classes = "table table-striped", index_names = False)
-   table = table.replace('border="1"','border="0"')
-   table = table.replace('style="text-align: right;"', "") # control this in css, not pandas.
-
-   return HttpResponse(table)
-
-
-def greet(request, w):
-
-    return HttpResponse("Well hello, {}!".format(w))
-
-
-def add(request, p1, p2):
-
-    p1 = int(p1)
-    p2 = int(p2)
-
-    return HttpResponse("{} + {} = {}".format(p1, p2, p1 + p2))
-
-
-def greet_template(req, w):
-
-  return render(req, "greet.html", {"who" : w})
-
-
-from .forms import CountiesForm
-from .forms import CountiesForm
-def display_table(request):
-
-    county = request.GET.get('county', 'Accomack County')
-
-    filename = join(settings.STATIC_ROOT, 'myapp/va_presidential.csv')
-
-    df = pd.read_csv(filename)
-
-    df = df[df["County/City"] == county]
-    if not df.size: return HttpResponse("No such county!")
-
-    table = df.to_html(float_format = "%.3f", classes = "table table-striped", index = False)
-    table = table.replace('border="1"','border="0"')
-    table = table.replace('style="text-align: right;"', "") # control this in css, not pandas.
-
-    params = {'title' : county,
-              'form_action' : reverse_lazy('myapp:display_pic'),
-              'form_method' : 'get',
-              'form' : CountiesForm({'county' : county}),
-              'html_table' : table}
-
-    return render(request, 'view_table.html', params)
-
-
-def pure_template(req):
-
-  params = {"xli" : ["Bessy", "has", "fantastic", "cats"],
-            "animal" : "dog",
-            "di" : {"dog" : "woof", "cat" : "meow", "tiger" : "roar"}}
-
-  return render(req, "pure_template.html", params)
-
-
-def get_reader(request): # note: no other params.
-
-  address = request.GET.get('address', 'ADDR')  # if we knew the parameters ...
-  state = request.GET.get('state', 'STATE')  # if we knew the parameters ...
-  zipc = request.GET.get('zipc', 'ZIP')  # if we knew the parameters ...
-  d = dict(request.GET._iterlists())
-
-  return HttpResponse(str(d))
-
-
-
-def form(request):
-
-    state = request.GET.get('state', 'PA')
-    address = request.GET.get('address', 'Liberty Bell')
-    currency = request.GET.get("currency", "EUR")
-    # if not state: state = request.POST.get('state', 'PA')
-
-    g = Nominatim()
-
-    location = str(g.geocode(STATES_DICT[state])._point[:2])
-
-    params = {'form_action' : reverse_lazy('myapp:form'),
-              'form_method' : 'get',
-              'form' : InputForm({'state' : state,
-                                  'address' : address,
-                                  'currency': currency}),
-              'state' : STATES_DICT[state],
-              'location' : location}
-              # 'currency' : CURRENCY_DICT[currency]}
-
-    return render(request, 'form.html', params)
-
-
-from django.views.generic import FormView
-class FormClass(FormView):
-
-    template_name = 'form.html'
-    form_class = InputForm
-
-
-    def get(self, request):
-
-      state = request.GET.get('state', 'PA')
-
-      return render(request, self.template_name, {'form_action' : reverse_lazy('myapp:formclass'),
-                                                  'form_method' : 'get',
-                                                  'form' : InputForm({'state' : state}),
-                                                  'state' : STATES_DICT[state]})
-
-    def post(self, request):
-
-      state = request.POST.get('state', 'PA')
-
-      return render(request, self.template_name, {'form_action' : reverse_lazy('myapp:formclass'),
-                                                  'form_method' : 'get',
-                                                  'form' : InputForm({'state' : state}),
-                                                  'state' : STATES_DICT[state]})
-
-
-
-def pic(request, c = None):
-
-   t = np.linspace(0, 2 * np.pi, 30)
-   u = np.sin(t)
-
-   plt.figure() # needed, to avoid adding curves in plot
-   plt.plot(t, u, color = c)
-
-   # write bytes instead of file.
-   figfile = BytesIO()
-
-   # this is where the color is used.
-   try: plt.savefig(figfile, format = 'png')
-   except ValueError: raise Http404("No such color")
-
-   figfile.seek(0) # rewind to beginning of file
-   return HttpResponse(figfile.read(), content_type="image/png")
-
-
-from .forms import CountiesForm
 def display_pic(request, c = 'r'):
 
-    county = request.GET.get('county', 'Accomack County')
+    district = request.GET.get('district', 'Albuquerque Public Schools')
 
-    params = {'title' : county,
+    params = {'title' : district,
               'form_action' : reverse_lazy('myapp:display_pic'),
               'form_method' : 'get',
-              'form' : CountiesForm({'county' : county}),
-              'pic_source' : reverse_lazy("myapp:plot", kwargs = {'c' : county})}
+              'form' : SchoolsForm({'district' : district}),
+              'pic_source' : reverse_lazy("myapp:plotmath", kwargs = {'c' : district}),
+              'pic_source1' : reverse_lazy("myapp:plotreading", kwargs = {'c' : district}),
+              'pic_source2' : reverse_lazy("myapp:plotexpenditure", kwargs = {'c' : district}),
+              'District_Name' : district}
 
     return render(request, 'view_pic.html', params)
 
-
-def plot(request, c = "Accomack County"):
+def plotmath(request, c = "Albuquerque Public Schools"):
 
    filename = join(settings.STATIC_ROOT, 'myapp/merge_summary.csv')
 
    df = pd.read_csv(filename, index_col = "Year", parse_dates = ["Year"])
 
-   df = df[df["Name of reporting district"] == c]
-   if not df.size: return HttpResponse("No such county!")
+   df = df[df["Name of reporting district"].str.lower() == c.lower()]
+   if not df.size: return HttpResponse("No such district!")
 
-   df["Democratic Share"] = 100 - df["Republican Share"]
-
-   ax = df[["Reading performance", "Current"]].plot(color = ["b", "r"])
-   ax.set_ylabel("Percent of Two-Party Vote")
+   ax = df[["All Students, Math, All Grades,% Performance"]].plot(legend=False, ylim = [0,100])
+   ax.set_ylabel("Met Performance Requirements (%)")
+   plt.title('% of Students Hitting Performance Score (Math)', color='black')
 
    # write bytes instead of file.
    figfile = BytesIO()
@@ -245,6 +100,117 @@ def plot(request, c = "Accomack County"):
    figfile.seek(0) # rewind to beginning of file
    return HttpResponse(figfile.read(), content_type="image/png")
 
+def plotreading(request, c = "Albuquerque Public Schools"):
+
+   filename = join(settings.STATIC_ROOT, 'myapp/merge_summary.csv')
+
+   df = pd.read_csv(filename, index_col = "Year", parse_dates = ["Year"])
+
+   df = df[df["Name of reporting district"].str.lower() == c.lower()]
+   if not df.size: return HttpResponse("No such district!")
+
+   ax = df[["All Students, Reading, All Grades,% Performance"]].plot(legend=False, ylim = [0,100])
+   ax.set_ylabel("Met Performance Requirements (%)")
+   plt.title('% of Students Hitting Performance Score (Reading)', color='black')
+
+   # write bytes instead of file.
+   figfile = BytesIO()
+
+   # this is where the color is used.
+   plt.subplots_adjust(bottom = 0.16)
+   try: ax.figure.savefig(figfile, format = 'png')
+   except ValueError: raise Http404("No such color")
+
+   figfile.seek(0) # rewind to beginning of file
+   return HttpResponse(figfile.read(), content_type="image/png")
+
+def plotexpenditure(request, c = "Albuquerque Public Schools"):
+
+   filename = join(settings.STATIC_ROOT, 'myapp/merge_summary.csv')
+
+   df = pd.read_csv(filename, index_col = "Year", parse_dates = ["Year"])
+
+   df = df[df["Name of reporting district"].str.lower() == c.lower()]
+   if not df.size: return HttpResponse("No such district!")
+
+   dx = df[["Current expenditures per pupil"]].plot(legend=False)
+   dx.set_ylabel("Expenditure per Student ($)")
+   plt.title('Expenditure Per Student', color='black')
+
+   # write bytes instead of file.
+   figfile1 = BytesIO()
+
+   # this is where the color is used.
+   plt.subplots_adjust(bottom = 0.16)
+   try: dx.figure.savefig(figfile1, format = 'png')
+   except ValueError: raise Http404("No such color")
+
+   figfile1.seek(0) # rewind to beginning of file
+   return HttpResponse(figfile1.read(), content_type="image/png")
+
+def display_picrelation(request, c = 'r'):
+
+    district = request.GET.get('district', 'Albuquerque Public Schools')
+
+    params = {'title' : district,
+              'form_action' : reverse_lazy('myapp:display_picrelation'),
+              'form_method' : 'get',
+              'form' : SchoolsForm({'district' : district}),
+              'pic_source1' : reverse_lazy("myapp:plotrelation", kwargs = {'c' : district}),
+              'District_Name' : district}
+
+    return render(request, 'view_pic.html', params)
+
+def plotrelation(request, c = "Albuquerque Public Schools"):
+
+   filename = join(settings.STATIC_ROOT, 'myapp/merge_summary.csv')
+
+   df = pd.read_csv(filename, index_col = "Year", parse_dates = ["Year"])
+
+   df = df[df["Name of reporting district"].str.lower() == c.lower()]
+   if not df.size: return HttpResponse("No such district!")
+
+   ax = df[["Current expenditures per pupil", "All Students, Math, All Grades,% Performance"]]
+   ax = ax.plot(x = "Current expenditures per pupil", y = "All Students, Math, All Grades,% Performance", legend=False, ylim = (0,100))
+   ax.set_ylabel("Met Performance Requirements (%)")
+   ax.set_xlabel("Current expenditures per pupil ($)")
+   plt.title('Expenditure vs Performance ('+c+')', color='black')
+
+   # write bytes instead of file.
+   figfile1 = BytesIO()
+
+   # this is where the color is used.
+   plt.subplots_adjust(bottom = 0.16)
+   try: ax.figure.savefig(figfile1, format = 'png')
+   except ValueError: raise Http404("No such color")
+
+   figfile1.seek(0) # rewind to beginning of file
+   return HttpResponse(figfile1.read(), content_type="image/png")
+
+
+class FormClass(FormView):
+
+    template_name = 'form.html'
+    form_class = InputForm
+
+
+    def get(self, request):
+
+      state = request.GET.get('state', 'Alaska')
+
+      return render(request, self.template_name, {'form_action' : reverse_lazy('myapp:formclass'),
+                                                  'form_method' : 'get',
+                                                  'form' : InputForm({'state' : state}),
+                                                  'state' : STATES_DICT[state]})
+
+    def post(self, request):
+
+      state = request.POST.get('state', 'Alaska')
+
+      return render(request, self.template_name, {'form_action' : reverse_lazy('myapp:formclass'),
+                                                  'form_method' : 'get',
+                                                  'form' : InputForm({'state' : state}),
+                                                  'state' : STATES_DICT[state]})
 
 def resp_redirect(request):
 
@@ -260,10 +226,6 @@ def resp(request, state):
 
     return HttpResponse("I hear you, {}.".format(STATES_DICT[state]))
 
-
-def static_site(request):
-
-  return render(request, "static_site.html")
 
 def embedded_map(request):
 

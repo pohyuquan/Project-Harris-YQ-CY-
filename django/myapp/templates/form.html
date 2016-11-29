@@ -11,7 +11,7 @@
     I hear you, {{ currency }}!! </br>
 {% endif %}
 
-<form action="{{ form_action }}" 
+<form action="{{ form_action }}"
       method="{{ form_method }}">
   {% if form_method == "post" %}
     {% csrf_token %}
@@ -24,4 +24,3 @@
 
 
 {% endblock %}
-

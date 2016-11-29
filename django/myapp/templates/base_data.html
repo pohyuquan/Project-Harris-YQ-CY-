@@ -24,36 +24,20 @@
   <div class="col-md-10 col-md-offset-1">
     <ul class="nav navbar-nav">
       <li class="active"><a href="http://localhost:8000/myapp/">Home</a></li>
-      <li><a href="http://localhost:8000/myapp/data">Data</a></li>
+      <li><a href="http://localhost:8000/myapp/data">Source Information</a></li>
       <li><a href="#methods">Methods</a></li>
       <li><a href="#code">Code</a></li>
-      <li><a href="http://localhost:8000/myapp/display_table">Tables</a></li>
-
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="http://localhost:8000/myapp/table">Tables<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="/myapp/table/?state=Alaska">Alaska</a></li>
-          <li><a href="/myapp/table/?state=Arizona">Arizona</a></li>
-          <li><a href="/myapp/table/?state=California">California</a></li>
-          <li><a href="/myapp/table/?state=Florida">Florida</a></li>
-          <li><a href="/myapp/table/?state=Georgia">Georgia</a></li>
-          <li><a href="/myapp/table/?state=Nevada">Nevada</a></li>
-          <li><a href="/myapp/table/?state=North%20Carolina">North Carolina</a></li>
-          <li><a href="/myapp/table/?state=South%20Carolina">South Carolina</a></li>
-          <li><a href="/myapp/table/?state=Pennsylvania">Pennsylvania</a></li>
-          <li><a href="/myapp/table/?state=Tennessee">Tennessee</a></li>
-          <li><a href="/myapp/table/?state=Utah">Utah</a></li>
-          <li><a href="/myapp/table/?state=Texas">Texas</a></li>
-        </ul>
-      </li>
-      <li><a href="#schooldistricts">School Districts</a></li>
+      <li><a href="http://localhost:8000/myapp/display_table">Tables by States</a></li>
+      <li><a href="http://localhost:8000/myapp/display_pic">Plots by District</a></li>
+      <li><a href="http://localhost:8000/myapp/display_picrelation">Expenditure vs Performance</a></li>
     </ul>
 
-    <form method="{{ form_method }}">
-      {{ form.currency }}
-      {{ form.county }}
+    <form action="{{ form_action }}"
+          method="{{ form_method }}">
+      {{ form.state }}
+      {{ form.district }}
     </form>
-    <img src="https://www.unic.ac.cy/files/image_slider/school-of-education.jpg" alt="Education" width="100%" align="center">
+    <img src="https://www.unic.ac.cy/files/image_slider/school-of-education.jpg" alt="Education" style="width:1285px;height:300px;" align="center">
   </div>
 </nav>
 

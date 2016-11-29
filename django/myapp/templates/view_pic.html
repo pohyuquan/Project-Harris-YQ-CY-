@@ -1,9 +1,13 @@
-{% extends "base.html" %}
+{% extends "base_data.html" %}
 
 {% block content %}
 
-  <img src='{{ pic_source }}' width=40% />
-
-  {% lorem 3 p %}
+  <font size="6"><center><strong>{{District_Name}}</strong></center></font>
+  <p>
+  <center>
+    <img src='{{ pic_source }}' width=33% />
+    <img src='{{ pic_source1 }}' width=33% />
+    <img src='{{ pic_source2 }}' width=33% />]
+  </center>
 
 {% endblock %}

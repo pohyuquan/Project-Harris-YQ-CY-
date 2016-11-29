@@ -5,28 +5,21 @@ from . import views
 app_name = 'myapp'
 urlpatterns = [
 
-    # November 7
+    # Stuff we need
     url(r'^$', views.index, name='index'),
     url(r'^data/$', views.data, name='data'),
-    url(r'^table/$', views.table),
-    url(r'^csv/$', views.csv),
-    url(r'^csv/(?P<year>[0-9]+)/$', views.csv),
-    url(r'^greet/(?P<w>[A-Za-z\- ]+)/$', views.greet),
-    url(r'^add/(?P<p1>[0-9]+)\+(?P<p2>[0-9]+)/$', views.add, name='add'),
-    url(r'^greet_template/(?P<w>[A-Za-z\- ]+)/$', views.greet_template),
-
-    # November 9
-    url(r'^pure_template/$', views.pure_template),
-    url(r'^get_reader/$', views.get_reader, name='get_reader'),
-    url(r'^form/$', views.form, name = "form"),
-    url(r'^plot/(?P<c>[A-Za-z ]+)/$', views.plot, name='plot'),
-    url(r'^pic/$', views.pic, name='pic'),
-    url(r'^pic/(?P<c>[a-z])/$', views.pic, name='pic_col'),
-    url(r'^display_pic/$', views.display_pic, name='display_pic'),
     url(r'^display_table/$', views.display_table, name='display_table'),
+    url(r'^display_pic/$', views.display_pic, name='display_pic'),
+    url(r'^plotmath/(?P<c>[A-Za-z\-\ ]+)/$', views.plotmath, name='plotmath'),
+    url(r'^plotreading/(?P<c>[A-Za-z\-\' ]+)/$', views.plotreading, name='plotreading'),
+    url(r'^plotexpenditure/(?P<c>[A-Za-z\-\' ]+)/$', views.plotexpenditure, name='plotexpenditure'),
+    url(r'^plotrelation/(?P<c>[A-Za-z\-\' ]+)/$', views.plotrelation, name='plotrelation'),
+    url(r'^display_picrelation/$', views.display_picrelation, name='display_picrelation'),
+
+    # stuff just in case
+
     url(r'^formclass/$', views.FormClass.as_view(), name = "formclass"),
-    # url(r'^resp/$', views.resp_redirect, name = "resp_redirect"),
-    # url(r'^resp/(?P<state>[A-Z][A-Z])/$', views.resp, name = "resp"),
-    url(r'^static_site/$', views.static_site),
+    url(r'^resp/$', views.resp_redirect, name = "resp_redirect"),
+    url(r'^resp/(?P<state>[A-Z][A-Z])/$', views.resp, name = "resp"),
     url(r'^map/$', views.embedded_map, name = "map"),
 ]

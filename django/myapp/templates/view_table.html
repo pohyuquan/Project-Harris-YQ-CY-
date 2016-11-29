@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "base_data.html" %}
 
 {% block content %}
-  {{ form.state }}
+  <font size="6"><center><strong>{{State_Name}}</strong></center></font>
   {{ html_table | safe }}
 {% endblock %}
