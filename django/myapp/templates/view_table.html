@@ -1,6 +1,21 @@
-{% extends "base_data.html" %}
+{% extends "base_data1.html" %}
 
 {% block content %}
-  <font size="6"><center><strong>{{State_Name}}</strong></center></font>
+
+<form action="{{ form_action }}"
+      method="{{ form_method }}">
+  {% if form_method == "post" %}
+    {% csrf_token %}
+  {% endif %}
+
+  <font size="6"><center><strong>{{State_Name}}, {{Variable2}}, {{Variable3}}, {{Variable4}}</strong></center></font>
+  <p>
+
+    State  {{ form.state }}
+    Grade Level  {{ form1.gradelevel }}
+    Demographics/SubGroup  {{ form2.subgroups }}
+    Subject {{ form3.topic }}  <input type="submit" value="Submit"></form>
+
   {{ html_table | safe }}
+
 {% endblock %}

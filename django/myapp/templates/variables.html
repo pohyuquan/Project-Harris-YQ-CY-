@@ -1,0 +1,32 @@
+{% extends "base_data1.html" %}
+
+{% block content %}
+
+<form action="{{ form_action }}"
+      method="{{ form_method }}">
+  {% if form_method == "post" %}
+    {% csrf_token %}
+  {% endif %}
+
+<style>
+  th, td {
+      padding: 10px;
+      text-align: left;
+  }
+</style>
+
+<font size="6"><center><strong>{{Variable1}}, {{Variable2}}, {{Variable3}}, {{Variable4}}</strong></center></font>
+
+  <table align="center">
+    <tr><td>District/County</td> <td>{{ form.district }} </td><td rowspan="4"><img src='{{ pic_source }}' width=60% /></td></tr>
+    <tr><td>Grade Level</td> <td>{{ form1.gradelevel }} </td></tr>
+    <tr><td>Demographics/SubGroup</td> <td>{{ form2.subgroups }} </td></tr>
+    <tr><td>Subject</td> <td>{{ form3.topic }} </td></tr>
+  </table>
+  <p>
+
+  <input type="submit" value="Submit">
+</form>
+
+
+{% endblock %}
