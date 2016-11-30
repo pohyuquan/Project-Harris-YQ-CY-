@@ -43,7 +43,7 @@ After launching our dynamic website using *manage.py* on terminal, you can navig
 * *Expenditure vs Performance* allows the user to select and plot the relationship between current expenditure per pupil and school performance (average of math and reading performance) for each school district.
 * *Data Exploration* provides the user an interface, where they input the specific school district, grade level, subgroup of students and subject, to plot a line graph of school performance against current expenditures per school.
 
-<h1>Git Repository</h1>
+<h2>Git Repository</h2>
 There are three main folders in our github repository:<br>
 * Fiscal Data
  * Contains the raw files of fiscal data tables
