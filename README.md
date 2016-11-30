@@ -30,3 +30,15 @@ Our dataset consists of information from 2008 to 2011 for 73 out of 100 largest 
 The cleaning code can be found <a href = "https://github.com/pohyuquan/Project-Harris-YQ-CY-/blob/master/code/data_cleaning/data_cleaning.py">here</a>.
 
 The final merged data set can be accessed <a href = "https://github.com/pohyuquan/Project-Harris-YQ-CY-/blob/master/code/data_cleaning/merge_summary.csv">here</a>.
+
+<h1>Navigating our Site </h1>
+After launching our dynamic website using *manage.py* on terminal, you can navigate our site by clicking on the following buttons on the navigation bar at the top of the website:
+* *Home* is the main page of our website 
+* *The Team* contains information of our group members. 
+* *Data* features our data sources and the process of cleaning and merging two datasets. 
+* *Code* shows where the public can obtain our code for the django website and data cleaning.
+* *Overall Relationship* shows static plots of school expenditure per student and math/reading performance.
+* *Tables by State* allows the user to customise data tables of all school districts in the state, by selecting the state, grade level, subgroups of the students. The table generated will contain information on current expenditure per pupil, students that have taken the math/reading placement test and the percentage of them that have met the national proficiency standards. 
+* *Plots by School Districts* allows the user to select and view summary plots of our key variables for individual schooling districts. 
+* *Expenditure vs Performance* allows the user to select and plot the relationship between current expenditure per pupil and school performance (average of math and reading performance) for each school district.
+* *Data Exploration* provides the user an interface, where they input the specific school district, grade level, subgroup of students and subject, to plot a line graph of school performance against current expenditures per school.
