@@ -14,7 +14,7 @@ Little agreement exists on which school expenditures and resources are most like
 
 Debates on the effectiveness of fiscal expenditures 
 
-There has little agreement over the effectiveness of school expenditures in improving school or student performance. Our project compiles fiscal data tables from the <em>U.S. Department of Education: National Center for Education Statistics</em> and Consolidated State Performance Report from U.S. Department of Education: Office of Elementary and Secondary Education. 
+There has little agreement over the effectiveness of school expenditures in improving school or student performance. Our project compiles <b>Fiscal Data Tables</b> from the <em>U.S. Department of Education: National Center for Education Statistics</em> and <b>Consolidated State Performance Report</b> from <em>U.S. Department of Education: Office of Elementary and Secondary Education</em>. 
 
 
 To investigate the relationship between fiscal expenditure on education and school performance, we merged two datasets from 2008 to 2011: Fiscal data tables from the U.S. Department of Education: National Center for Education Statistics and Consolidated State Performance Report from U.S. Department of Education: Office of Elementary and Secondary Education. 
