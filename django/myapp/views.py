@@ -44,17 +44,21 @@ def index(request):
 
     return render(request, "base_data.html")
 
+
 def team(request):
 
     return render(request, "team.html")
+
 
 def data(request):
 
     return render(request, "data.html")
 
+
 def code(request):
 
     return render(request, "code.html")
+
 
 def display_table(request, a = "a", b = "b", c = "c", d = "d"):
 
@@ -70,13 +74,14 @@ def display_table(request, a = "a", b = "b", c = "c", d = "d"):
               'form1' : GradesForm({'gradelevel' : gradelevel,}),
               'form2' : SubgroupForm({'subgroups' : subgroups,}),
               'form3' : SubjectForm({'topic' : topic,}),
-              'html_table' : reverse_lazy("myapp:plottable", kwargs = {'a' : state, 'b' : gradelevel, 'c' : subgroups, 'd' : topic}),
+              'html_table' : plottable(request, a = state, b = gradelevel, c = subgroups, d = topic),
               'State_Name' : state,
               'Variable2' : gradelevel,
               'Variable3' : subgroups,
               'Variable4' : topic}
 
     return render(request, 'view_table.html', params)
+
 
 def plottable(request, a = "Alaska", b = "All Grades", c = "All Students", d = "Math"):
 
@@ -97,15 +102,11 @@ def plottable(request, a = "Alaska", b = "All Grades", c = "All Students", d = "
     cols = list(cols)
     df2 = df[cols]
     colss = df2.columns.tolist()
-    colss = colss[-6:] + colss[:-6]
+    colss = colss[-13:] + colss[:-13]
     df2 = df2[colss]
 
-    table = df2.to_html(float_format = "%.3f", classes = "table table-striped", index = False)
-    table = table.replace('border="1"','border="0"')
-    table = table.replace('style="text-align: right;"', "")
-    table
+    return df2.to_html(float_format = "%.3f", classes = "table table-striped", index = False)
 
-    return HttpResponse(table)
 
 def display_pic(request, c = 'r'):
 
@@ -121,6 +122,7 @@ def display_pic(request, c = 'r'):
               'District_Name' : district}
 
     return render(request, 'view_pic.html', params)
+
 
 def plotmath(request, c = "Albuquerque Public Schools"):
 
@@ -146,6 +148,7 @@ def plotmath(request, c = "Albuquerque Public Schools"):
    figfile.seek(0) # rewind to beginning of file
    return HttpResponse(figfile.read(), content_type="image/png")
 
+
 def plotreading(request, c = "Albuquerque Public Schools"):
 
    filename = join(settings.STATIC_ROOT, 'myapp/merge_summary.csv')
@@ -169,6 +172,7 @@ def plotreading(request, c = "Albuquerque Public Schools"):
 
    figfile.seek(0) # rewind to beginning of file
    return HttpResponse(figfile.read(), content_type="image/png")
+
 
 def plotexpenditure(request, c = "Albuquerque Public Schools"):
 
@@ -194,6 +198,7 @@ def plotexpenditure(request, c = "Albuquerque Public Schools"):
    figfile1.seek(0) # rewind to beginning of file
    return HttpResponse(figfile1.read(), content_type="image/png")
 
+
 def display_picrelation(request, c = 'r'):
 
     district = request.GET.get('district', 'Albuquerque Public Schools')
@@ -206,6 +211,7 @@ def display_picrelation(request, c = 'r'):
               'District_Name' : district}
 
     return render(request, 'view_pic.html', params)
+
 
 def plotrelation(request, c = "Albuquerque Public Schools"):
 
@@ -233,6 +239,7 @@ def plotrelation(request, c = "Albuquerque Public Schools"):
    figfile1.seek(0) # rewind to beginning of file
    return HttpResponse(figfile1.read(), content_type="image/png")
 
+
 def variables(request, a = "a", b = "b", c = "c", d = "d"):
 
     district = request.GET.get('district', 'Albuquerque Public Schools')
@@ -253,6 +260,7 @@ def variables(request, a = "a", b = "b", c = "c", d = "d"):
               'Variable4' : topic}
 
     return render(request, 'variables.html', params)
+
 
 def plotvariable(request, a = "Albuquerque Public Schools", b = "All Grades", c = "All Students", d = "Math"):
 
@@ -287,43 +295,63 @@ def plotvariable(request, a = "Albuquerque Public Schools", b = "All Grades", c 
    figfile.seek(0) # rewind to beginning of file
    return HttpResponse(figfile.read(), content_type="image/png")
 
-class FormClass(FormView):
 
-    template_name = 'form.html'
-    form_class = InputForm
+def final(request):
 
+    params = {'Plot1' :  reverse_lazy("myapp:finalplotmath"),
+              'Plot2' :  reverse_lazy("myapp:finalplotread")
+              }
 
-    def get(self, request):
-
-      state = request.GET.get('state', 'Alaska')
-
-      return render(request, self.template_name, {'form_action' : reverse_lazy('myapp:formclass'),
-                                                  'form_method' : 'get',
-                                                  'form' : InputForm({'state' : state}),
-                                                  'state' : STATES_DICT[state]})
-
-    def post(self, request):
-
-      state = request.POST.get('state', 'Alaska')
-
-      return render(request, self.template_name, {'form_action' : reverse_lazy('myapp:formclass'),
-                                                  'form_method' : 'get',
-                                                  'form' : InputForm({'state' : state}),
-                                                  'state' : STATES_DICT[state]})
-
-def resp_redirect(request):
-
-    state = request.POST.get('state', '')
-    if not state: state = request.GET.get('state', '')
-
-    if state: return HttpResponseRedirect(reverse_lazy('myapp:resp', kwargs = {'state' : state}))
-
-    return HttpResponseRedirect(reverse_lazy('myapp:form'))
+    return render(request, 'final.html', params)
 
 
-def resp(request, state):
+def finalplotmath(request):
 
-    return HttpResponse("I hear you, {}.".format(STATES_DICT[state]))
+    filename = join(settings.STATIC_ROOT, 'myapp/merge_summary.csv')
+
+    df = pd.read_csv(filename, index_col = "Year", parse_dates = ["Year"])
+
+    ax = df[["Current expenditures per pupil", "All Students, Math, All Grades,% Performance"]]
+    ax = ax.plot(kind = 'scatter', x = "Current expenditures per pupil", y = "All Students, Math, All Grades,% Performance", legend=False, ylim = (0,100))
+    ax.set_ylabel("% Performance")
+    ax.set_xlabel("Current expenditures per pupil ($)")
+    plt.title('Expenditure vs Performance (Math)', color='black')
+    plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
+
+    figfile = BytesIO()
+
+    plt.subplots_adjust(bottom = 0.16)
+    try: ax.figure.savefig(figfile, format = 'png')
+    except ValueError: raise Http404("No such color")
+
+    figfile.seek(0)
+
+    return HttpResponse(figfile.read(), content_type="image/png")
+
+
+def finalplotread(request):
+
+    filename = join(settings.STATIC_ROOT, 'myapp/merge_summary.csv')
+
+    df = pd.read_csv(filename, index_col = "Year", parse_dates = ["Year"])
+
+    ax = df[["Current expenditures per pupil", "All Students, Reading, All Grades,% Performance"]]
+    ax = ax.plot(kind = 'scatter', x = "Current expenditures per pupil", y = "All Students, Reading, All Grades,% Performance", legend=False, ylim = (0,100))
+    ax.set_ylabel("% Performance")
+    ax.set_xlabel("Current expenditures per pupil ($)")
+    plt.title('Expenditure vs Performance (Reading)', color='black')
+    plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
+
+    figfile = BytesIO()
+
+    plt.subplots_adjust(bottom = 0.16)
+    try: ax.figure.savefig(figfile, format = 'png')
+    except ValueError: raise Http404("No such color")
+
+    figfile.seek(0)
+
+    return HttpResponse(figfile.read(), content_type="image/png")
+
 
 def contact_us(request):
 
@@ -335,29 +363,3 @@ def contact_us(request):
     folium.ClickForMarker(popup='Waypoint')
 
     return render(request, 'contact_us.html')
-
-
-def embedded_map(request):
-
-  filename = join(settings.STATIC_ROOT, 'myapp/TM_WORLD_BORDERS_SIMPL-0.3.shp')
-
-  m = folium.Map([39.828175, -98.5795], tiles='stamenwatercolor', zoom_start = 1)
-
-  df = gpd.read_file(filename)
-
-  mountains = ["Aconcagua", "Mount Kosciuszko", "Mont Blanc, Chamonix", "Mount Everest", "Denali", "Mount Elbrus", "Puncak Jaya", "Mount Kilimanjaro", "Mount Vinson"]
-  mtn_df = gpd.tools.geocode(mountains, provider = "googlev3").to_crs(df.crs)
-
-  folium.GeoJson(gpd.sjoin(df, mtn_df, how = "inner", op = "contains"),
-                 style_function=lambda feature: {
-                  'fillColor': 'red', 'fillOpacity' : 0.6, 'weight' : 2, 'color' : 'black'
-                 }).add_to(m)
-
-  for xi, pt in mtn_df.iterrows():
-      folium.RegularPolygonMarker(pt.geometry.coords[::][0][::-1], popup=pt.address,
-                          number_of_sides = 5, radius = 8, fill_color = "black", fill_opacity = 1.0).add_to(m)
-
-  map_string = m._repr_html_().replace("width:100%;", "width:60%;float:right;", 1)
-
-  return render(request, 'view_map.html', {"title" : "Seven Summits",
-                                           "map_string" : map_string})

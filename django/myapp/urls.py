@@ -21,11 +21,7 @@ urlpatterns = [
     url(r'^display_picrelation/$', views.display_picrelation, name='display_picrelation'),
     url(r'^variables/$', views.variables, name='variables'),
     url(r'^plotvariable/(?P<a>[A-Za-z0-9\-\'\,\% ]+)/(?P<b>[A-Za-z0-9\-\'\,\% ]+)/(?P<c>[A-Za-z0-9\-\'\,\% ]+)/(?P<d>[A-Za-z0-9\-\'\,\% ]+)$', views.plotvariable, name='plotvariable'),
-
-    # stuff just in case
-
-    url(r'^formclass/$', views.FormClass.as_view(), name = "formclass"),
-    url(r'^resp/$', views.resp_redirect, name = "resp_redirect"),
-    url(r'^resp/(?P<state>[A-Z][A-Z])/$', views.resp, name = "resp"),
-    url(r'^map/$', views.embedded_map, name = "map"),
+    url(r'^final/$', views.final, name='final'),
+    url(r'^finalplotmath/$', views.finalplotmath, name='finalplotmath'),
+    url(r'^finalplotread/$', views.finalplotread, name='finalplotread'),
 ]
