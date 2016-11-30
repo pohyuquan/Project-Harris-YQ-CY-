@@ -8,7 +8,8 @@ Scope (20%): how many of the extensions did the group complete? How much does th
 Correctness (25%): is the baseline functionality fully delivered, bug-free?
 Style (25%): are the front-end and code both manageable?
 Performance (15%): is the site 'snappy?'
-Documentation (15%): is the class presentation engaging and interesting? Does the README actually make it possible to understand how to find your data and run your site?
+Documentation (15%): is the class presentation engaging and interesting? *Does the README actually make it possible to understand how to find your data and run your site?*
+
 
 <h1>Introduction</h1>
 There has little agreement over the effectiveness of school expenditures in improving school or student performance. In some studies, student achievement seems unrelated to measures of resources directed to the schools. However, if schools were able to direct resources in productive ways, higher school expenditures would result in better schools i.e. better student performance, more extensive facilities, and more qualified teachers. Our project examines the relationship between school expenditures in improving school performance in the top 100 largest U.S. school districts from 2008-2011. We used proportion of students achieving the national math and reading proficiency levels as a proxy of school performance and current expenditures per student as a proxy of school resources. We were unable to identify a positive or negative relationship between school performance and school expenditures in our preliminary analysis, primarily due to the short timespan of our panel data. While our preliminary analysis was with mixed success, our site remains as a good exploratory tool for school expenditure and school performance indicators.
