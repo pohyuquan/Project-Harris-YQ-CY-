@@ -11,6 +11,8 @@
 
 
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css' %}" />
+    <style>
+    </style>
 
     <title>{{ title | default:"My Django Site" }}</title>
 
@@ -23,17 +25,18 @@
 <nav class="navbar navbar-inverse" id="navbar">
   <div class="col-md-10 col-md-offset-1">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="http://localhost:8000/myapp/">Home</a></li>
-      <li><a href="http://localhost:8000/myapp/data">Source Information</a></li>
-      <li><a href="#methods">Methods</a></li>
-      <li><a href="#code">Code</a></li>
+      <li><a href="http://localhost:8000/myapp/">Home</a></li>
+      <li><a href="http://localhost:8000/myapp/team">The Team</a></li>
+      <li><a href="http://localhost:8000/myapp/data">Data Information</a></li>
+      <li><a href="http://localhost:8000/myapp/code">Code</a></li>
       <li><a href="http://localhost:8000/myapp/display_table">Tables by States</a></li>
       <li><a href="http://localhost:8000/myapp/display_pic">Plots by District</a></li>
       <li><a href="http://localhost:8000/myapp/display_picrelation">Expenditure vs Performance</a></li>
       <li><a href="http://localhost:8000/myapp/variables">Play Around with Variables</a></li>
+      <li><a href="http://localhost:8000/myapp/contact">Contact Us</a></li>
     </ul>
 
-    <img src="https://www.unic.ac.cy/files/image_slider/school-of-education.jpg" alt="Education" style="width:1285px;height:300px;" align="center">
+    <img src="https://www.unic.ac.cy/files/image_slider/school-of-education.jpg" alt="Education" style="width:100%;" align="center">
   </div>
 </nav>
 
