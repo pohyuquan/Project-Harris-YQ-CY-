@@ -1,0 +1,52 @@
+{% extends "base_data.html" %}
+
+{% block content %}
+<h1>Source Information</h1>
+To investigate the relationship between fiscal expenditure on education and school
+performance, we merged two datasets from 2008 to 2011: Fiscal data tables from
+the U.S. Department of Education: National Center for Education Statistics and
+Consolidated State Performance Report from U.S. Department of Education:
+Office of Elementary and Secondary Education.
+<br>
+<br>
+<img src = "https://pbs.twimg.com/profile_images/2394256461/vd8d4d4u0g781h9nmpww_400x400.jpeg" alt ="logo2" width = "10%" align= "left">
+
+<h2>Fiscal Data Tables</h2>
+Common Core of Data (CCD) is a program of the U.S. Department of
+Education's <a href = "http://nces.ed.gov/">National Center for Education Statistics</a>
+that annually collects fiscal and non-fiscal data about public schools, public school districts
+and state education agencies in the United States.
+The data are supplied by state education agency officials and include
+information that describes schools and school districts, including name,
+address, and phone number; descriptive information about students and staff,
+including demographics; and fiscal data.
+The fiscal data tables consolidates total students, revenues, current expenditures,
+current expenditures per pupil, total expenditures, and total expenditures
+per pupil for the 100 largest public elementary and secondary school districts
+in the United States from 2008 to 2011.
+<br>
+<br>
+<img src = "http://sparkaction.org/sites/sparkaction.org/files/image/article/deptofedseal_0.gif" alt="logo1" width="10%" align="left" margin-left = "10%" margin-right = "10%">
+
+<h2>Consolidated State Performance Report</h2>
+The Consolidated State Performance dataset is part of the initiative of
+<a href = "http://www2.ed.gov/about/offices/list/oese/index.html">U.S. Department of Education: Office of Elementary and Secondary Education</a>
+to put performance data at the center of policy,
+management, and budget decisions for all K-12 educational programs.
+The Consolidated State Performance Report (CSPR) is the state-level data collection of information related to the ESEA Goals.<br>
+<li>Maintaining high standards of a minimum attaining proficiency or better in reading/language arts and mathematics</li>
+<li>Safe, drug free and conducive learning environments
+<li>100% high school graduation rates</li>
+<br>
+
+<h2>Data Cleaning and Merging </h2>
+Even though the National Center for Education Statistics only collects
+fiscal expenditure of the top 100 largest public elementary and secondary school
+districts annually, 68 school districts consistently appeared in the top 100 over
+a time period of four years. We then merged the appended fiscal data tables with
+the Consolidated State Performance Report on school districts, state and year, and
+were left with 59 school districts from 2008 to 2011.
+<br>
+<br>
+<br>
+{% endblock %}
