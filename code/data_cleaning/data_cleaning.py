@@ -54,12 +54,14 @@ mathread["State"] = pd.core.strings.str_strip(mathread["State"])
 drop_col = ['FIPST_x', 'FIPST_y', 'Name of reporting district_y']
 mathread.drop(drop_col, axis=1, inplace=True)
 
-#YUQUAN WHAT IS THIS
+#removing values that were not valid (e.g. GE50). These values were because of the small sample size in certain groups in order to maintain anonimity.
 mathread = mathread.replace('^[A-Z]{2}', np.nan, regex=True)
+#rounding down ranges (ranges were used for small sample sizes to maintain anonimity)
 mathread = mathread.replace('-[0-9]{2}$', "", regex=True)
+#some values appeared as dates, no idea why. Removed them.
 mathread = mathread.replace('[0-9]-[A-Za-z]{3}', np.nan, regex=True)
 
-#YUQUAN DOUBLE CHECK THIS: replace n/a to nan to be identifiable by pandas
+#replace n/a to nan to be identifiable by pandas
 mathread = mathread.replace('n/a', np.nan)
 
 #making Name of reporting district identical as fiscal dataset
