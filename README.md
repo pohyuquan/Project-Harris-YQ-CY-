@@ -42,3 +42,14 @@ After launching our dynamic website using *manage.py* on terminal, you can navig
 * *Plots by School Districts* allows the user to select and view summary plots of our key variables for individual schooling districts. 
 * *Expenditure vs Performance* allows the user to select and plot the relationship between current expenditure per pupil and school performance (average of math and reading performance) for each school district.
 * *Data Exploration* provides the user an interface, where they input the specific school district, grade level, subgroup of students and subject, to plot a line graph of school performance against current expenditures per school.
+
+<h1>Git Repository</h1>
+There are three main folders in our github repository:<br>
+* Fiscal Data
+ * Contains the raw files of fiscal data tables
+* State Assessment Data
+ * Contains the raw files of math and reading Consolidated State Performance Report data
+* Code 
+ * Data cleaning contains the python code we used to clean and merge our two datasets, raw data files, intermediate data files, and the final dataset, *merged_summary.csv*. 
+ * Django contains all the code required to launch our dynamic website.  
+ * Maps contains the python code used to plot the map in our site. 
