@@ -1,0 +1,44 @@
+{% extends "base_data.html" %}
+
+
+<div class="col-md-10 col-md-offset-1 text-left">
+
+  <div id="content">
+    <form action="{{ form_action }}"
+          method="{{ form_method }}">
+      {{ form.state }}
+      {{ form.district }}
+    </form>
+  </div>
+
+{% block content %}
+
+  <div id ="theteam">
+    <h1>The Team</h1>
+    <table align="center" text-align = "center">
+    <tr>
+      <td><h3>Chengyee Lim</h3></td>
+      <td> </td>
+      <td><h3>Yuquan Poh</h3></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href = "https://github.com/limchengyee"><img class = "img-circle" src = "http://i657.photobucket.com/albums/uu299/chengyeelovesyou/10408548_10152938129460000_8700575034745285451_n.jpg" align="center" width = "242px"></a></td>
+      <td>University of Chicago, MAPSS Student; Pursuing Certificate in Computational Social Sciences; Budding Programmer; Economics undergrad; Singaporean</td>
+      <td><a href = "https://github.com/pohyuquan"><img class = "img-circle" src = "http://i657.photobucket.com/albums/uu299/chengyeelovesyou/13015532_10153765993204735_1482421572956895596_n.jpg" align="center" width = "90%"></a></td>
+      <td>University of Chicago, MAPSS Student; Biomedical Sciences undergrad; Budding Programmer; Future Policeman; Singaporean</td>
+    </tr>
+    <tr>
+
+    </tr>
+    </table>
+
+
+
+  </div>
+  <br>
+  <br>
+</div>
+</body>
+</html>
+{% endblock %}

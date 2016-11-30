@@ -11,13 +11,18 @@ img {
   text-transform: capitalize;
 }
 
-table {
-  align: left;
+.img-circle {
+    border-radius: 50%;
+}
+
+
+.table {
+  text-align: center;
   border-width: 5px 0px;
   padding: 0px;
   border-spacing: 0px;
   display: inline-block;
-
+  vertical-align: middle;
 
 }
 
@@ -32,6 +37,7 @@ h2 {
 p {
   text-align: justify;
 }
+
 .navbar {
   style: uppercase;
   background-color: white;

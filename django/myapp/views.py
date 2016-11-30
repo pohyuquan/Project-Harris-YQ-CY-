@@ -31,7 +31,7 @@ from .forms import SubjectForm
 from .models import SUBJECT_DICT
 
 import geopandas as gpd, folium
-from geopy import Nominatim
+from geopy.geocoders import Nominatim
 
 import seaborn as sns
 sns.set(font_scale = 1.7)
@@ -44,9 +44,17 @@ def index(request):
 
     return render(request, "base_data.html")
 
+def team(request):
+
+    return render(request, "team.html")
+
 def data(request):
 
     return render(request, "data.html")
+
+def code(request):
+
+    return render(request, "code.html")
 
 def display_table(request, a = "a", b = "b", c = "c", d = "d"):
 
@@ -316,6 +324,17 @@ def resp_redirect(request):
 def resp(request, state):
 
     return HttpResponse("I hear you, {}.".format(STATES_DICT[state]))
+
+def contact_us(request):
+
+    m = folium.Map([41.789621, -87.596398],
+                   tiles='cartodbpositron',
+                   zoom_start=14, max_zoom=16, min_zoom=4)
+
+    folium.Marker(location=[41.789621, -87.596398], popup='University of Chicago').add_to(m)
+    folium.ClickForMarker(popup='Waypoint')
+
+    return render(request, 'contact_us.html')
 
 
 def embedded_map(request):

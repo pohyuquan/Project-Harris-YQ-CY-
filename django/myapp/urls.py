@@ -8,6 +8,9 @@ urlpatterns = [
     # Stuff we need
     url(r'^$', views.index, name='index'),
     url(r'^data/$', views.data, name='data'),
+    url(r'^team/$', views.team, name='team'),
+    url(r'^code/$', views.code, name='code'),
+    url(r'^contact/$', views.contact_us, name='contact_us'),
     url(r'^display_table/$', views.display_table, name='display_table'),
     url(r'^plottable/(?P<a>[A-Za-z0-9\-\'\,\% ]+)/(?P<b>[A-Za-z0-9\-\'\,\% ]+)/(?P<c>[A-Za-z0-9\-\'\,\% ]+)/(?P<d>[A-Za-z0-9\-\'\,\% ]+)$', views.plottable, name='plottable'),
     url(r'^display_pic/$', views.display_pic, name='display_pic'),
