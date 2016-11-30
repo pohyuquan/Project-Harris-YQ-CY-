@@ -1,4 +1,4 @@
-# Project-Harris-YQ-CY-
+# Final Project (Yu Quan Poh and Cheng Yee Lim)
 In your README you should be very explicit about the datasources.  This is where we take citation seriously.
 You should NOT, however, include a copy of that data in your repository if it exceeds a few megabytes.  Instead, you should describe how the data was cleaned and reduced.  The cleaning scripts are a fundamental part of your projects; they should be included in the repository and itemized in your README
 You SHOULD include the fully processed data as a CSV or other, so that I can see what you're working with.
@@ -25,5 +25,7 @@ Our dataset consists of information from 2008 to 2011 for 73 out of 100 largest 
 3. Reformated names of school districts in math and reading reports to match those in the Fiscal Data Tables i.e. replacing SD with school district, stripping irrelevant numbers, stripping redundant spaces
 4. Merged Fiscal Data Tables and Consolidated State Performance Reports (Math and Reading) on Name of school (reporting) district, State and Year
 5. Renamed relevant column headers to be more intuitive i.e. 'numvalid': 'Number of Students', 'MTH': 'Math'
+
+The cleaning code can be found <a href = "https://github.com/pohyuquan/Project-Harris-YQ-CY-/blob/master/Data-Set%20Cleaninig/final_cleaning_merge.ipynb">here</a>.
 
 The final merged data set can be accessed <a href = "https://github.com/pohyuquan/Project-Harris-YQ-CY-/blob/master/Data-Set%20Cleaninig/merge_summary.csv">here</a>.
