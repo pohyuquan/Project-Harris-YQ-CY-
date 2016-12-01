@@ -1,0 +1,19 @@
+{% extends "base_data.html" %}
+
+{% block content %}
+
+<style>
+  th, td {
+      padding: 10px;
+      text-align: center;
+  }
+</style>
+
+  <font size="6"><center><strong>{{District_Name}}</strong></center></font>
+  <p>
+    <table align="center">
+      <tr><td><font size="5">Math</font></td> <td><font size="5">Reading</font></td>
+      <tr><td><img src='{{ pic_source }}' width=90% /></td> <td><img src='{{ pic_source1 }}' width=90% /></td></tr>
+    </table>
+
+{% endblock %}

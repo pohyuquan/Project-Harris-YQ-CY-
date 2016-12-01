@@ -197,7 +197,7 @@ def plotexpenditure(request, c = "Albuquerque Public Schools"):
    return HttpResponse(figfile1.read(), content_type="image/png")
 
 
-def display_picrelation(request, c = 'r'):
+def display_picrelation(request, c = 'r', d = 'p'):
 
     district = request.GET.get('district', 'Albuquerque Public Schools')
 
@@ -205,13 +205,14 @@ def display_picrelation(request, c = 'r'):
               'form_action' : reverse_lazy('myapp:display_picrelation'),
               'form_method' : 'get',
               'form' : SchoolsForm({'district' : district}),
-              'pic_source1' : reverse_lazy("myapp:plotrelation", kwargs = {'c' : district}),
+              'pic_source' : reverse_lazy("myapp:plotrelationmath", kwargs = {'c' : district}),
+              'pic_source1' : reverse_lazy("myapp:plotrelationreading", kwargs = {'c' : district}),
               'District_Name' : district}
 
-    return render(request, 'view_pic.html', params)
+    return render(request, 'view_pic1.html', params)
 
 
-def plotrelation(request, c = "Albuquerque Public Schools"):
+def plotrelationmath(request, c = "Albuquerque Public Schools"):
 
    filename = join(settings.STATIC_ROOT, 'myapp/merge_summary.csv')
 
@@ -224,7 +225,33 @@ def plotrelation(request, c = "Albuquerque Public Schools"):
    ax = ax.plot(x = "Current expenditures per pupil", y = "All Students, Math, All Grades,% Performance", legend=False, ylim = (0,100))
    ax.set_ylabel("Met Performance Requirements (%)")
    ax.set_xlabel("Current expenditures per pupil ($)")
-   plt.title('Expenditure vs Performance ('+c+')', color='black', y = 1.03)
+   plt.title('Expenditure vs Performance Math ('+c+')', color='black', y = 1.03, fontsize=15)
+
+   # write bytes instead of file.
+   figfile1 = BytesIO()
+
+   # this is where the color is used.
+   plt.subplots_adjust(bottom = 0.16)
+   try: ax.figure.savefig(figfile1, format = 'png')
+   except ValueError: raise Http404("No such color")
+
+   figfile1.seek(0) # rewind to beginning of file
+   return HttpResponse(figfile1.read(), content_type="image/png")
+
+def plotrelationreading(request, c = "Albuquerque Public Schools"):
+
+   filename = join(settings.STATIC_ROOT, 'myapp/merge_summary.csv')
+
+   df = pd.read_csv(filename, index_col = "Year", parse_dates = ["Year"])
+
+   df = df[df["Name of reporting district"].str.lower() == c.lower()]
+   if not df.size: return HttpResponse("No such district!")
+
+   ax = df[["Current expenditures per pupil", "All Students, Reading, All Grades,% Performance"]]
+   ax = ax.plot(x = "Current expenditures per pupil", y = "All Students, Reading, All Grades,% Performance", legend=False, ylim = (0,100))
+   ax.set_ylabel("Met Performance Requirements (%)")
+   ax.set_xlabel("Current expenditures per pupil ($)")
+   plt.title('Expenditure vs Performance Reading ('+c+')', color='black', y = 1.03, fontsize=15y)
 
    # write bytes instead of file.
    figfile1 = BytesIO()
