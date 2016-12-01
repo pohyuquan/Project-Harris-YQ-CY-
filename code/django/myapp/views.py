@@ -251,7 +251,7 @@ def plotrelationreading(request, c = "Albuquerque Public Schools"):
    ax = ax.plot(x = "Current expenditures per pupil", y = "All Students, Reading, All Grades,% Performance", legend=False, ylim = (0,100))
    ax.set_ylabel("Met Performance Requirements (%)")
    ax.set_xlabel("Current expenditures per pupil ($)")
-   plt.title('Expenditure vs Performance Reading ('+c+')', color='black', y = 1.03, fontsize=15y)
+   plt.title('Expenditure vs Performance Reading ('+c+')', color='black', y = 1.03, fontsize=15)
 
    # write bytes instead of file.
    figfile1 = BytesIO()
